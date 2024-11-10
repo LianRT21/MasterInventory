@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ferretería El Martillo Dorado</title>
+        <link rel="stylesheet" href="D:/JORGE/Documentos/workspace/master_inventory/style_inventario.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    </head>
+    <body>
+        <header>
+            <div class="top-bar">
+                <div class="container">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone"></i> +57 123 456 7890</span>
+                        <span><i class="fas fa-envelope"></i> info@martillodorado.com</span>
+                    </div>
+                    <div class="top-bar-right">
+                        <div class="social-media">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                        <div class="pse-button">
+                            <a href="D:/JORGE/Documentos/workspace/master_inventory/pse.html" class="pse-link">PSE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav>
+                <div class="container">
+                    <a href="#" class="logo">
+                        <img src="/placeholder.svg?height=60&width=200" alt="El Martillo Dorado Logo">
+                    </a>
+                    <ul class="nav-links">
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#productos">Productos</a></li>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#nosotros">Nosotros</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                    <div class="search-cart">
+                        <form class="search-form">
+                            <input type="text" placeholder="Buscar productos...">
+                            <button type="submit"><i class="fas fa-search"></i></button>
+                        </form>
+                        <a href="#" class="cart-icon"><i class="fas fa-shopping-cart"></i></a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <div class="botones">
+                <div class="filtros">
+                    <select id="ordenarPor" onchange="ordenarProductos(this.value)">
+                        <option value="">Ordenar por...</option>
+                        <option value="nombreAsc">Nombre (A-Z)</option>
+                        <option value="nombreDesc">Nombre (Z-A)</option>
+                        <option value="precioAsc">Precio (Menor a Mayor)</option>
+                        <option value="precioDesc">Precio (Mayor a Menor)</option>
+                    </select>
+                </div>
+                <div class="acciones">
+                    <button onclick="agregarProducto()">Añadir Producto</button>
+                    <button onclick="seleccionarProductoParaEliminar()">Eliminar Producto</button>
+                </div>
+            </div>
+            <div class="catalogo">
+                <div class="producto" data-id="1">
+                    <img src="" alt="Imagen" class="imagen">
+                    <div class="info">
+                        <div class="nombre">Producto</div>
+                        <div class="descripcion">Descripción breve del producto.</div>
+                        <div class="costo">$00.00</div>
+                        <div class="cantidad">0</div>
+                    </div>
+                    <button class="editar-btn" onclick="editarProducto(this)">Editar</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Sobre Nosotros</h3>
+                        <p>El Martillo Dorado es tu ferretería de confianza desde 2015, ofreciendo productos de calidad y servicio excepcional.</p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Enlaces Rápidos</h3>
+                        <ul>
+                            <li><a href="#inicio">Inicio</a></li>
+                            <li><a href="#productos">Productos</a></li>
+                            <li><a href="#servicios">Servicios</a></li>
+                            <li><a href="#contacto">Contacto</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Contacto</h3>
+                        <p>Calle Principal #123, Ciudad</p>
+                        <p>Teléfono: +57 123 456 7890</p>
+                        <p>Email: info@martillodorado.com</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2024 Ferretería El Martillo Dorado. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div id="editModal" class="custom-modal">
+        <div class="custom-modal-content">
+            <button type="button" class="custom-close" onclick="cerrarModal()">&times;</button>
+            <h2>Editar Producto</h2>
+            <form id="editForm" class="custom-form">
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="descripcion">Descripción:</label>
+                    <textarea id="descripcion" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="costo">Costo:</label>
+                    <input type="number" id="costo" step="0.01" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cantidad">Cantidad:</label>
+                    <input type="number" id="cantidad" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="imagenURL">URL de la imagen:</label>
+                    <input type="text" id="imagenURL" oninput="cargarImagenDesdeURL()">
+                </div>
+                
+                <div class="form-group">
+                    <label for="imagenArchivo">O sube una imagen:</label>
+                    <input type="file" id="imagenArchivo" accept=".jpg, .jpeg, .png, .gif, .webp" onchange="cargarImagenDesdeArchivo()">
+                </div>
+                
+                <div id="imagePreview"></div>
+                
+                <button type="submit" class="custom-submit">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="productos_data.js"></script>
+    <script src="script_inventario.js"></script>
+</body>
+</html>
